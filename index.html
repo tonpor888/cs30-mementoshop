@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิทยาการคอมพิวเตอร์ - ครบรอบ 30 ปี</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Prompt', sans-serif;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, #e0f2fe, #bfdbfe, #93c5fd);
+        }
+        
+        .nav-gradient {
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #1e3a8a, #2563eb);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        input, select, textarea {
+            transition: all 0.2s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .popup {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .success-notification {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .mju-logo {
+            width: auto;
+            height: 40px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-gradient min-h-screen">
+    <!-- Navigation -->
+    <nav class="nav-gradient text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- MJU CS Logo -->
+                <img src="https://www.cs.mju.ac.th/assets/logo.aa2240c2.png" alt="MJU CS Logo" class="mju-logo">
+                <div>
+                    <h1 class="text-xl font-bold">วิทยาการคอมพิวเตอร์</h1>
+                    <p class="text-xs">มหาวิทยาลัยแม่โจ้</p>
+                </div>
+            </div>
+            <div class="flex space-x-4">
+                <button id="shopBtn" class="px-4 py-2 rounded-lg bg-white text-blue-700 font-medium hover:bg-blue-50 transition">สั่งซื้อสินค้า</button>
+                <button id="adminBtn" class="px-4 py-2 rounded-lg bg-white text-blue-700 font-medium hover:bg-blue-50 transition">Admin</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Shop Page -->
+    <div id="shopPage" class="container mx-auto py-8 px-4">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">สินค้าที่ระลึก</h2>
+            <p class="text-lg text-gray-600">ครบรอบ 30 ปี วิทยาการคอมพิวเตอร์</p>
+        </div>
+        
+        <!-- Product Categories -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button class="category-btn px-4 py-2 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition" data-category="all">ทั้งหมด</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-white text-blue-600 font-medium hover:bg-blue-50 transition" data-category="เสื้อ">เสื้อ</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-white text-blue-600 font-medium hover:bg-blue-50 transition" data-category="กระเป๋า">กระเป๋า</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-white text-blue-600 font-medium hover:bg-blue-50 transition" data-category="แก้ว">แก้ว</button>
+            <button class="category-btn px-4 py-2 rounded-full bg-white text-blue-600 font-medium hover:bg-blue-50 transition" data-category="อื่นๆ">อื่นๆ</button>
+        </div>
+        
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="productsGrid">
+            <!-- Sample Products - Will be populated by JavaScript -->
+        </div>
+        
+        <!-- Order Form Modal -->
+        <div id="orderFormModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+            <div class="absolute inset-0 bg-black bg-opacity-50" id="orderModalOverlay"></div>
+            <div class="bg-white rounded-xl p-6 max-w-3xl w-full mx-4 relative z-10 popup max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800">วิทยาการคอมพิวเตอร์ - แบบฟอร์มสั่งซื้อ</h3>
+                    <button id="closeOrderForm" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="mb-6 p-4 bg-blue-50 rounded-lg flex items-center" id="selectedProductInfo">
+                    <div class="w-20 h-20 bg-gray-200 rounded-lg mr-4 flex items-center justify-center overflow-hidden" id="selectedProductImage">
+                        <!-- Product image will be inserted here -->
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-lg" id="selectedProductName">ชื่อสินค้า</h4>
+                        <p class="text-blue-600 font-medium" id="selectedProductPrice">฿299</p>
+                    </div>
+                </div>
+                
+                <form id="orderForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="fullName">ชื่อ-นามสกุล</label>
+                            <input type="text" id="fullName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="phone">เบอร์โทรศัพท์</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 font-medium mb-2" for="address">ที่อยู่</label>
+                            <textarea id="address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="productDetail">รายละเอียดสินค้า (สี/ขนาด)</label>
+                            <input type="text" id="productDetail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="เช่น สีน้ำเงิน ขนาด L" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="purchaseDate">วันที่สั่งซื้อ</label>
+                            <input type="date" id="purchaseDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">วิธีการรับสินค้า</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="deliveryMethod" value="pickup" class="mr-2" required>
+                                    <span>รับที่ภาควิชา</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="deliveryMethod" value="delivery" class="mr-2">
+                                    <span>จัดส่งทางไปรษณีย์</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">วิธีการชำระเงิน</label>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="paymentMethod" value="bank" class="mr-2" required>
+                                    <span>โอนเงินผ่านธนาคาร</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="paymentMethod" value="promptpay" class="mr-2">
+                                    <span>พร้อมเพย์</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="paymentMethod" value="other" class="mr-2">
+                                    <span>อื่นๆ</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 font-medium mb-2" for="paymentSlip">หลักฐานการชำระเงิน</label>
+                            <div class="relative">
+                                <input type="file" id="paymentSlip" class="hidden" accept="image/*" required>
+                                <label for="paymentSlip" class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                                    <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span id="slipNameDisplay">อัพโหลดสลิปการโอนเงิน</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center mt-8">
+                        <button type="submit" class="btn-gradient text-white font-medium px-8 py-3 rounded-lg">
+                            ส่งคำสั่งซื้อ
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Payment Information -->
+                <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-medium mb-2">ข้อมูลการชำระเงิน</h4>
+                    <div class="space-y-2 text-sm">
+                        <p><span class="font-medium">ธนาคารกสิกรไทย:</span> 123-4-56789-0 (ภาควิชาวิทยาการคอมพิวเตอร์)</p>
+                        <p><span class="font-medium">พร้อมเพย์:</span> 099-999-9999 (ภาควิชาวิทยาการคอมพิวเตอร์)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Page -->
+    <div id="adminPage" class="container mx-auto py-8 px-4 hidden">
+        <!-- Admin Login -->
+        <div id="adminLogin" class="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden card p-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">เข้าสู่ระบบแอดมิน</h2>
+                <p class="text-gray-600">กรุณาใส่รหัสผ่านเพื่อเข้าสู่ระบบ</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2" for="password">รหัสผ่าน</label>
+                    <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                </div>
+                
+                <div id="loginError" class="text-red-500 text-sm hidden">รหัสผ่านไม่ถูกต้อง กรุณาลองอีกครั้ง</div>
+                
+                <div class="flex justify-center">
+                    <button type="submit" class="btn-gradient text-white font-medium px-8 py-3 rounded-lg">
+                        เข้าสู่ระบบ
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Admin Panel (Hidden by default) -->
+        <div id="adminPanel" class="hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">ระบบจัดการสินค้า</h2>
+                <p class="text-lg text-gray-600">เพิ่มสินค้าที่ระลึกครบรอบ 30 ปี</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden card">
+                <div class="p-8">
+                    <form id="adminForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2" for="category">หมวดหมู่สินค้า</label>
+                                <select id="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                                    <option value="" disabled selected>เลือกหมวดหมู่</option>
+                                    <option value="เสื้อ">เสื้อ</option>
+                                    <option value="กระเป๋า">กระเป๋า</option>
+                                    <option value="แก้ว">แก้ว</option>
+                                    <option value="หมวก">หมวก</option>
+                                    <option value="ร่ม">ร่ม</option>
+                                    <option value="เข็มกลัด">เข็มกลัด</option>
+                                    <option value="สมุด">สมุด</option>
+                                    <option value="ปากกา">ปากกา</option>
+                                    <option value="อื่นๆ">อื่นๆ</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2" for="productName">ชื่อสินค้า</label>
+                                <input type="text" id="productName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="เช่น เสื้อที่ระลึกครบรอบ 30 ปี" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2" for="color">สี</label>
+                                <input type="text" id="color" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="เช่น น้ำเงิน, ขาว, ดำ" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2" for="size">ขนาด</label>
+                                <input type="text" id="size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="เช่น S, M, L, XL" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2" for="price">ราคา (บาท)</label>
+                                <input type="number" id="price" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" placeholder="เช่น 299" min="0" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2" for="productImage">รูปภาพสินค้า</label>
+                                <div class="relative">
+                                    <input type="file" id="productImage" class="hidden" accept="image/*" required>
+                                    <label for="productImage" class="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                                        <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span id="fileNameDisplay">อัพโหลดรูปภาพ</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center mt-8">
+                            <button type="submit" class="btn-gradient text-white font-medium px-8 py-3 rounded-lg">
+                                เพิ่มสินค้า
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Product List Preview -->
+            <div class="max-w-3xl mx-auto mt-8 bg-white rounded-xl shadow-lg overflow-hidden card">
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">รายการสินค้าล่าสุด</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">สินค้า</th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">หมวดหมู่</th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">สี/ขนาด</th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ราคา</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="productTableBody">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="4">ยังไม่มีสินค้า</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 relative z-10 popup">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                    <svg class="h-10 w-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-medium text-gray-900 mb-2" id="popupTitle">เพิ่มสินค้าสำเร็จ</h3>
+                <p class="text-gray-500" id="popupMessage">ข้อมูลได้ถูกบันทึกเรียบร้อยแล้ว</p>
+                <button id="closePopup" class="mt-6 btn-gradient text-white font-medium px-6 py-2 rounded-lg">
+                    ตกลง
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Notification -->
+    <div id="orderSuccessNotification" class="fixed top-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-sm w-full hidden z-50 success-notification">
+        <div class="flex items-center">
+            <div class="flex-shrink-0 bg-green-100 rounded-full p-2 mr-3">
+                <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <div class="flex-1">
+                <p class="font-medium text-gray-900">คำสั่งซื้อสำเร็จ</p>
+                <p class="text-sm text-gray-600">ขอบคุณสำหรับการสั่งซื้อ</p>
+            </div>
+            <button id="closeOrderNotification" class="text-gray-400 hover:text-gray-500">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="mt-2 bg-blue-50 rounded-md p-2 text-sm text-blue-700">
+            เราจะติดต่อกลับเพื่อยืนยันคำสั่งซื้อของคุณในเร็วๆ นี้
+        </div>
+    </div>
+
+    <!-- Product Added Success Notification -->
+    <div id="productAddedNotification" class="fixed top-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-sm w-full hidden z-50 success-notification">
+        <div class="flex items-center">
+            <div class="flex-shrink-0 bg-blue-100 rounded-full p-2 mr-3">
+                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+            </div>
+            <div class="flex-1">
+                <p class="font-medium text-gray-900">เพิ่มสินค้าสำเร็จ</p>
+                <p class="text-sm text-gray-600">สินค้าถูกเพิ่มเข้าสู่ระบบเรียบร้อยแล้ว</p>
+            </div>
+            <button id="closeProductNotification" class="text-gray-400 hover:text-gray-500">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="mt-2 bg-blue-50 rounded-md p-2 text-sm text-blue-700">
+            สินค้าจะแสดงในหน้าร้านค้าทันที
+        </div>
+    </div>
+
+    <script>
+        // Sample products data
+        const sampleProducts = [
+            {
+                id: 1,
+                name: "เสื้อที่ระลึกครบรอบ 30 ปี",
+                category: "เสื้อ",
+                price: 299,
+                color: "น้ำเงิน",
+                size: "S, M, L, XL",
+                image: createShirtSVG("blue")
+            },
+            {
+                id: 2,
+                name: "เสื้อที่ระลึกครบรอบ 30 ปี",
+                category: "เสื้อ",
+                price: 299,
+                color: "ขาว",
+                size: "S, M, L, XL",
+                image: createShirtSVG("white")
+            },
+            {
+                id: 3,
+                name: "กระเป๋าผ้าที่ระลึก",
+                category: "กระเป๋า",
+                price: 199,
+                color: "น้ำเงิน",
+                size: "มาตรฐาน",
+                image: createBagSVG("blue")
+            },
+            {
+                id: 4,
+                name: "แก้วเซรามิคที่ระลึก",
+                category: "แก้ว",
+                price: 250,
+                color: "ขาว",
+                size: "300ml",
+                image: createMugSVG("white")
+            },
+            {
+                id: 5,
+                name: "หมวกแก๊ปที่ระลึก",
+                category: "หมวก",
+                price: 220,
+                color: "น้ำเงิน",
+                size: "ปรับขนาดได้",
+                image: createCapSVG("blue")
+            },
+            {
+                id: 6,
+                name: "เข็มกลัดที่ระลึก",
+                category: "เข็มกลัด",
+                price: 80,
+                color: "ทอง",
+                size: "3cm",
+                image: createPinSVG()
+            }
+        ];
+        
+        let products = [...sampleProducts];
+        
+        // Navigation between pages
+        const shopBtn = document.getElementById('shopBtn');
+        const adminBtn = document.getElementById('adminBtn');
+        const shopPage = document.getElementById('shopPage');
+        const adminPage = document.getElementById('adminPage');
+        
+        shopBtn.addEventListener('click', () => {
+            shopPage.classList.remove('hidden');
+            adminPage.classList.add('hidden');
+        });
+        
+        adminBtn.addEventListener('click', () => {
+            shopPage.classList.add('hidden');
+            adminPage.classList.remove('hidden');
+        });
+        
+        // Admin login
+        const loginForm = document.getElementById('loginForm');
+        const adminLogin = document.getElementById('adminLogin');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginError = document.getElementById('loginError');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            
+            if (password === '     ') {
+                adminLogin.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                loginError.classList.add('hidden');
+            } else {
+                loginError.classList.remove('hidden');
+            }
+        });
+        
+        // File upload display
+        const productImage = document.getElementById('productImage');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        
+        productImage.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameDisplay.textContent = e.target.files[0].name;
+            }
+        });
+        
+        const paymentSlip = document.getElementById('paymentSlip');
+        const slipNameDisplay = document.getElementById('slipNameDisplay');
+        
+        paymentSlip.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                slipNameDisplay.textContent = e.target.files[0].name;
+            }
+        });
+        
+        // Success popup handling
+        const successPopup = document.getElementById('successPopup');
+        const closePopup = document.getElementById('closePopup');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupMessage = document.getElementById('popupMessage');
+        
+        function showPopup(title, message) {
+            popupTitle.textContent = title;
+            popupMessage.textContent = message;
+            successPopup.classList.remove('hidden');
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                successPopup.classList.add('hidden');
+            }, 3000);
+        }
+        
+        closePopup.addEventListener('click', () => {
+            successPopup.classList.add('hidden');
+        });
+        
+        // Success notifications
+        const orderSuccessNotification = document.getElementById('orderSuccessNotification');
+        const productAddedNotification = document.getElementById('productAddedNotification');
+        const closeOrderNotification = document.getElementById('closeOrderNotification');
+        const closeProductNotification = document.getElementById('closeProductNotification');
+        
+        function showOrderSuccessNotification() {
+            orderSuccessNotification.classList.remove('hidden');
+            
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                orderSuccessNotification.classList.add('hidden');
+            }, 5000);
+        }
+        
+        function showProductAddedNotification() {
+            productAddedNotification.classList.remove('hidden');
+            
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                productAddedNotification.classList.add('hidden');
+            }, 5000);
+        }
+        
+        closeOrderNotification.addEventListener('click', () => {
+            orderSuccessNotification.classList.add('hidden');
+        });
+        
+        closeProductNotification.addEventListener('click', () => {
+            productAddedNotification.classList.add('hidden');
+        });
+        
+        // Admin form submission
+        const adminForm = document.getElementById('adminForm');
+        const productTableBody = document.getElementById('productTableBody');
+        
+        adminForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const category = document.getElementById('category').value;
+            const productName = document.getElementById('productName').value;
+            const color = document.getElementById('color').value;
+            const size = document.getElementById('size').value;
+            const price = document.getElementById('price').value;
+            
+            // Create SVG based on category
+            let productSVG;
+            if (category === 'เสื้อ') {
+                productSVG = createShirtSVG(color.toLowerCase().includes('น้ำเงิน') ? 'blue' : 'white');
+            } else if (category === 'กระเป๋า') {
+                productSVG = createBagSVG(color.toLowerCase().includes('น้ำเงิน') ? 'blue' : 'white');
+            } else if (category === 'แก้ว') {
+                productSVG = createMugSVG(color.toLowerCase().includes('น้ำเงิน') ? 'blue' : 'white');
+            } else if (category === 'หมวก') {
+                productSVG = createCapSVG(color.toLowerCase().includes('น้ำเงิน') ? 'blue' : 'white');
+            } else {
+                productSVG = createGenericSVG();
+            }
+            
+            // Add to products array
+            const newProduct = {
+                id: products.length + 1,
+                name: productName,
+                category: category,
+                price: parseInt(price),
+                color: color,
+                size: size,
+                image: productSVG
+            };
+            
+            products.push(newProduct);
+            
+            // Update table and product grid
+            updateProductTable();
+            renderProducts();
+            
+            // Show success notification
+            showProductAddedNotification();
+            
+            // Reset form
+            adminForm.reset();
+            fileNameDisplay.textContent = 'อัพโหลดรูปภาพ';
+        });
+        
+        function updateProductTable() {
+            if (products.length === 0) {
+                productTableBody.innerHTML = `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="4">ยังไม่มีสินค้า</td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            productTableBody.innerHTML = '';
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${product.name}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-500">${product.category}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-500">${product.color} / ${product.size}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">฿${product.price}</div>
+                    </td>
+                `;
+                productTableBody.appendChild(row);
+            });
+        }
+        
+        // Product grid rendering
+        const productsGrid = document.getElementById('productsGrid');
+        
+        function renderProducts(category = 'all') {
+            productsGrid.innerHTML = '';
+            
+            const filteredProducts = category === 'all' 
+                ? products 
+                : products.filter(product => product.category === category);
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500">ไม่พบสินค้าในหมวดหมู่นี้</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-xl overflow-hidden shadow-md product-card relative';
+                
+                // Add "New" badge for the latest 2 products
+                const isNew = products.indexOf(product) >= products.length - 2;
+                
+                productCard.innerHTML = `
+                    ${isNew ? '<div class="badge">ใหม่</div>' : ''}
+                    <div class="p-4 flex items-center justify-center h-48 bg-gray-50">
+                        ${product.image}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium text-lg">${product.name}</h3>
+                        <p class="text-gray-500 text-sm">${product.category} - ${product.color}</p>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-blue-600 font-bold">฿${product.price}</span>
+                            <button class="order-btn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-id="${product.id}">สั่งซื้อ</button>
+                        </div>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to order buttons
+            document.querySelectorAll('.order-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const productId = parseInt(button.getAttribute('data-id'));
+                    openOrderForm(productId);
+                });
+            });
+        }
+        
+        // Category filtering
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active state
+                categoryButtons.forEach(btn => {
+                    btn.classList.remove('bg-blue-600', 'text-white');
+                    btn.classList.add('bg-white', 'text-blue-600');
+                });
+                button.classList.remove('bg-white', 'text-blue-600');
+                button.classList.add('bg-blue-600', 'text-white');
+                
+                // Filter products
+                const category = button.getAttribute('data-category');
+                renderProducts(category);
+            });
+        });
+        
+        // Order form handling
+        const orderFormModal = document.getElementById('orderFormModal');
+        const closeOrderForm = document.getElementById('closeOrderForm');
+        const orderModalOverlay = document.getElementById('orderModalOverlay');
+        const selectedProductName = document.getElementById('selectedProductName');
+        const selectedProductPrice = document.getElementById('selectedProductPrice');
+        const selectedProductImage = document.getElementById('selectedProductImage');
+        const orderForm = document.getElementById('orderForm');
+        
+        function openOrderForm(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            selectedProductName.textContent = product.name;
+            selectedProductPrice.textContent = `฿${product.price}`;
+            selectedProductImage.innerHTML = product.image;
+            
+            orderFormModal.classList.remove('hidden');
+        }
+        
+        closeOrderForm.addEventListener('click', () => {
+            orderFormModal.classList.add('hidden');
+        });
+        
+        orderModalOverlay.addEventListener('click', () => {
+            orderFormModal.classList.add('hidden');
+        });
+        
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show success notification
+            showOrderSuccessNotification();
+            
+            // Close modal and reset form
+            orderFormModal.classList.add('hidden');
+            orderForm.reset();
+            slipNameDisplay.textContent = 'อัพโหลดสลิปการโอนเงิน';
+        });
+        
+        // Set today's date as default for purchase date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('purchaseDate').value = today;
+        
+        // SVG creation functions
+        function createShirtSVG(color) {
+            const fillColor = color === 'blue' ? '#1e40af' : '#ffffff';
+            const strokeColor = color === 'blue' ? '#ffffff' : '#1e40af';
+            
+            return `
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 30L45 15H75L90 30L100 45V105H20V45L30 30Z" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>
+                    <path d="M45 15V40M75 15V40" stroke="${strokeColor}" stroke-width="2"/>
+                    <text x="60" y="70" font-size="12" text-anchor="middle" fill="${strokeColor}">CS 30th</text>
+                    <text x="60" y="85" font-size="10" text-anchor="middle" fill="${strokeColor}">Anniversary</text>
+                </svg>
+            `;
+        }
+        
+        function createBagSVG(color) {
+            const fillColor = color === 'blue' ? '#1e40af' : '#ffffff';
+            const strokeColor = color === 'blue' ? '#ffffff' : '#1e40af';
+            
+            return `
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 40H90V100H30V40Z" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>
+                    <path d="M40 40V30C40 25 45 20 60 20C75 20 80 25 80 30V40" stroke="${strokeColor}" stroke-width="2"/>
+                    <text x="60" y="70" font-size="12" text-anchor="middle" fill="${strokeColor}">CS 30th</text>
+                </svg>
+            `;
+        }
+        
+        function createMugSVG(color) {
+            const fillColor = color === 'blue' ? '#1e40af' : '#ffffff';
+            const strokeColor = color === 'blue' ? '#ffffff' : '#1e40af';
+            
+            return `
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40 40H80V90H40V40Z" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>
+                    <path d="M80 50H90C95 50 95 60 90 70C85 80 80 80 80 80" stroke="${strokeColor}" stroke-width="2"/>
+                    <path d="M40 40C40 40 40 30 60 30C80 30 80 40 80 40" stroke="${strokeColor}" stroke-width="2"/>
+                    <text x="60" y="65" font-size="10" text-anchor="middle" fill="${strokeColor}">CS 30th</text>
+                </svg>
+            `;
+        }
+        
+        function createCapSVG(color) {
+            const fillColor = color === 'blue' ? '#1e40af' : '#ffffff';
+            const strokeColor = color === 'blue' ? '#ffffff' : '#1e40af';
+            
+            return `
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 60C30 45 45 35 60 35C75 35 90 45 90 60L85 70H35L30 60Z" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2"/>
+                    <path d="M35 70L30 90H90L85 70" stroke="${strokeColor}" stroke-width="2"/>
+                    <text x="60" y="55" font-size="10" text-anchor="middle" fill="${strokeColor}">CS 30</text>
+                </svg>
+            `;
+        }
+        
+        function createPinSVG() {
+            return `
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="60" cy="60" r="30" fill="#FFD700" stroke="#1e40af" stroke-width="2"/>
+                    <text x="60" y="55" font-size="10" text-anchor="middle" fill="#1e40af">CS</text>
+                    <text x="60" y="70" font-size="10" text-anchor="middle" fill="#1e40af">30th</text>
+                </svg>
+            `;
+        }
+        
+        function createGenericSVG() {
+            return `
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="30" width="60" height="60" rx="5" fill="#1e40af"/>
+                    <text x="60" y="60" font-size="14" text-anchor="middle" fill="white">CS 30</text>
+                    <text x="60" y="75" font-size="10" text-anchor="middle" fill="white">Anniversary</text>
+                </svg>
+            `;
+        }
+        
+        // Initialize
+        renderProducts();
+        updateProductTable();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964cd4cba19b7996',t:'MTc1MzQ1ODgxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
