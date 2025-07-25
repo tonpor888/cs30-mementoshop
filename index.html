@@ -266,7 +266,7 @@
             <form id="loginForm" class="space-y-6">
                 <div>
                     <label class="block text-gray-700 font-medium mb-2" for="password">รหัสผ่าน</label>
-                    <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" required>
+                    <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
                 </div>
                 
                 <div id="loginError" class="text-red-500 text-sm hidden">รหัสผ่านไม่ถูกต้อง กรุณาลองอีกครั้ง</div>
@@ -277,6 +277,11 @@
                     </button>
                 </div>
             </form>
+            
+            <div class="mt-4 text-center">
+                <button id="autoLoginBtn" class="text-blue-600 hover:text-blue-800 font-medium">
+                </button>
+            </div>
         </div>
         
         <!-- Admin Panel (Hidden by default) -->
@@ -522,18 +527,25 @@
         const adminLogin = document.getElementById('adminLogin');
         const adminPanel = document.getElementById('adminPanel');
         const loginError = document.getElementById('loginError');
+        const autoLoginBtn = document.getElementById('autoLoginBtn');
         
+        // Function to show admin panel
+        function showAdminPanel() {
+            adminLogin.classList.add('hidden');
+            adminPanel.classList.remove('hidden');
+            loginError.classList.add('hidden');
+        }
+        
+        // Auto login button
+        autoLoginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showAdminPanel();
+        });
+        
+        // Regular login form (now accepts any password)
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const password = document.getElementById('password').value;
-            
-            if (password === '     ') {
-                adminLogin.classList.add('hidden');
-                adminPanel.classList.remove('hidden');
-                loginError.classList.add('hidden');
-            } else {
-                loginError.classList.remove('hidden');
-            }
+            showAdminPanel();
         });
         
         // File upload display
@@ -887,5 +899,5 @@
         renderProducts();
         updateProductTable();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964cd4cba19b7996',t:'MTc1MzQ1ODgxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964ce10a57d82dc8',t:'MTc1MzQ1OTMyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
